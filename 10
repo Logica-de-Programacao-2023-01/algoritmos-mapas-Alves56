@@ -1,0 +1,25 @@
+package main
+
+import "fmt"
+
+func countPairs(nums []int) map[[2]int]int {
+	pairCount := make(map[[2]int]int)
+
+	for i := 0; i < len(nums); i++ {
+		for j := i + 1; j < len(nums); j++ {
+			pair := [2]int{nums[i], nums[j]}
+			pairCount[pair]++
+		}
+	}
+
+	return pairCount
+}
+
+func main() {
+	numbers := []int{1, 2, 3, 4, 5, 1, 2, 3}
+	pairFrequency := countPairs(numbers)
+
+	for pair, freq := range pairFrequency {
+		fmt.Printf("%v: %d\n", pair, freq)
+	}
+}
