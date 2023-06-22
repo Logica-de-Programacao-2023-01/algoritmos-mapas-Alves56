@@ -1,0 +1,45 @@
+package main
+
+import (
+	"fmt"
+	"math"
+)
+
+func calcularDivisaoGastos(gastos map[string]float64) map[string]float64 {
+	totalGastos := 0.0
+	numPessoas := 0
+	pessoas := make([]string, 0)
+
+	// Calcula o total de gastos e obtém a lista de pessoas
+	for pessoa, gasto := range gastos {
+		totalGastos += gasto
+		numPessoas++
+		pessoas = append(pessoas, pessoa)
+	}
+
+	// Calcula o valor médio a ser pago por pessoa
+	valorMedio := totalGastos / float64(numPessoas)
+
+	// Calcula o valor que cada pessoa deve receber ou pagar
+	divisaoGastos := make(map[string]float64)
+	for _, pessoa := range pessoas {
+		divisaoGastos[pessoa] = math.Round((gastos[pessoa] - valorMedio) * 100) / 100
+	}
+
+	return divisaoGastos
+}
+
+func main() {
+	gastos := map[string]float64{
+		"João":   50.0,
+		"Maria":  30.0,
+		"Pedro":  40.0,
+		"Carlos": 20.0,
+	}
+
+	divisao := calcularDivisaoGastos(gastos)
+
+	for pessoa, valor := range divisao {
+		fmt.Printf("%s deve pagar: R$%.2f\n", pessoa, valor)
+	}
+}
