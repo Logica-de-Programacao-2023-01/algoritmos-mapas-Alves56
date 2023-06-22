@@ -1,0 +1,39 @@
+package main
+
+import "fmt"
+
+func unirMapas(mapa1, mapa2 map[string]string) map[string]string {
+	// Criar um novo mapa vazio
+	uniao := make(map[string]string)
+
+	// Copiar elementos do mapa1 para o novo mapa
+	for chave, valor := range mapa1 {
+		uniao[chave] = valor
+	}
+
+	// Copiar elementos do mapa2 para o novo mapa (prevalecendo sobre o mapa1 em caso de chaves duplicadas)
+	for chave, valor := range mapa2 {
+		uniao[chave] = valor
+	}
+
+	return uniao
+}
+
+func main() {
+	mapa1 := map[string]string{
+		"chave1": "valor1",
+		"chave2": "valor2",
+	}
+
+	mapa2 := map[string]string{
+		"chave2": "novo_valor2",
+		"chave3": "valor3",
+	}
+
+	uniao := unirMapas(mapa1, mapa2)
+
+	// Imprimir o mapa unido
+	for chave, valor := range uniao {
+		fmt.Printf("%s: %s\n", chave, valor)
+	}
+}
