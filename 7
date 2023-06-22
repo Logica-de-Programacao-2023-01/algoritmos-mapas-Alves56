@@ -1,0 +1,51 @@
+package main
+
+import "fmt"
+
+func contarLetras(frase string) map[string]map[rune]int {
+	palavras := make(map[string]map[rune]int)
+
+	for _, palavra := range separarPalavras(frase) {
+		contagem := make(map[rune]int)
+		for _, letra := range palavra {
+			contagem[letra]++
+		}
+		palavras[palavra] = contagem
+	}
+
+	return palavras
+}
+
+func separarPalavras(frase string) []string {
+	var palavras []string
+	palavraAtual := ""
+	for _, caractere := range frase {
+		if caractere == ' ' {
+			if len(palavraAtual) > 0 {
+				palavras = append(palavras, palavraAtual)
+				palavraAtual = ""
+			}
+		} else {
+			palavraAtual += string(caractere)
+		}
+	}
+
+	if len(palavraAtual) > 0 {
+		palavras = append(palavras, palavraAtual)
+	}
+
+	return palavras
+}
+
+func main() {
+	frase := "Esta é uma frase de exemplo"
+	contagens := contarLetras(frase)
+
+	for palavra, contagem := range contagens {
+		fmt.Println(palavra)
+		for letra, quantidade := range contagem {
+			fmt.Printf("%c: %d\n", letra, quantidade)
+		}
+		fmt.Println()
+	}
+}
