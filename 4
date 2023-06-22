@@ -1,0 +1,40 @@
+package main
+
+import (
+	"fmt"
+	"sort"
+	"strings"
+)
+
+func ordenarPalavra(palavra string) string {
+	slice := strings.Split(palavra, "")
+	sort.Strings(slice)
+	return strings.Join(slice, "")
+}
+
+func agruparAnagramas(palavras []string) map[string][]string {
+	anagramas := make(map[string][]string)
+
+	for _, palavra := range palavras {
+		palavraOrdenada := ordenarPalavra(palavra)
+		anagramas[palavraOrdenada] = append(anagramas[palavraOrdenada], palavra)
+	}
+
+	return anagramas
+}
+
+func main() {
+	palavras := []string{"amor", "roma", "carro", "casa", "armo", "amora"}
+
+	grupos := agruparAnagramas(palavras)
+
+	for _, grupo := range grupos {
+		fmt.Println(grupo)
+	}
+}
+Neste exemplo, a função ordenarPalavra recebe uma palavra como parâmetro e retorna a mesma palavra com as letras ordenadas em ordem alfabética. Essa função será utilizada para identificar palavras anagramas.
+
+A função agruparAnagramas recebe um
+
+
+
